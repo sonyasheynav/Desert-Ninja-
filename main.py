@@ -1,5 +1,6 @@
 import pygame
 import random
+from ninja import Ninja
 
 
 # set up pygame modules
@@ -15,18 +16,18 @@ screen = pygame.display.set_mode(size)
 BIRD_START_X = 500
 
 bg = pygame.image.load("desert-background.png")
-house = pygame.image.load("house.png")
-tree = pygame.image.load("tree.png")
+cactus = pygame.image.load("cactus.png")
+cactus_pair = pygame.image.load("cactus_pair.png")
 
 
-b = Bird(BIRD_START_X, 250)
-b = Balloon(300, 200)
+ninja= Ninja(BIRD_START_X, 250)
 
 
-INITIAL_HOUSE_X = random.randint(0,600)
-INITIAL_TREE_X = random.randint(0,600)
-house_x = INITIAL_HOUSE_X
-tree_x = INITIAL_TREE_X
+
+INITIAL_CACTUS_X = random.randint(0,600)
+INITIAL_CACTUS_PAIR_X = random.randint(0,600)
+cactus_x = INITIAL_CACTUS_X
+cactus_pair_x = INITIAL_CACTUS_PAIR_X
 
 
 # render the text for later
@@ -40,14 +41,14 @@ while run:
     # --- Main event loop
     clock.tick(60)
     if frame % 30 == 0:
-        bird.switch_image()
+        ninja.switch_image()
 
     for event in pygame.event.get():  # User did something
         if event.type == pygame.QUIT:  # If user clicked close
             run = False
 
     screen.blit(bg, (0, 0))
-    screen.blit(house, (house_x, 360))
+    screen.blit(cactus, (house_x, 360))
     screen.blit(tree, (tree_x, 360))
     screen.blit(bird.image, bird.rect)
     screen.blit(b.image, b.rect)

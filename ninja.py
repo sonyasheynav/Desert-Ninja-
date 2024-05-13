@@ -10,7 +10,7 @@ class Ninja:
         self.rescale_image(self.image)
         self.image_size = self.image.get_size()
         self.rect = pygame.Rect(self.x, self.y, self.image_size[0], self.image_size[1])
-        self.delta = 2
+        self.delta = 3
         self.up = True
 
     def rescale_image(self, image):
@@ -19,15 +19,15 @@ class Ninja:
         self.image = pygame.transform.scale(self.image, scale_size)
 
     def move_ninja(self,direction):
-        if direction == "right":
-            self.x = self.x + self.delta
-        if direction == "up":
-            self.y = self.y - 2 *  self.delta
-            self.x = self.x + self.delta
         if direction == "down":
-            self.x = self.x + self.delta +1
-
+            self.y = self.y + self.delta + 1
+        if direction == "up":
+            self.y = self.y - self.delta
+    #make it not be able to go below the floor
+        self.x = self.x + self.delta
         self.rect = pygame.Rect(self.x, self.y, self.image_size[0], self.image_size[1])
+
+
     def switch_image(self):
         image_number = 0
         if not self.up:

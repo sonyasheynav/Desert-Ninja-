@@ -14,7 +14,7 @@ def next(house_x, tree_x):
     distance = tree_x - house_x
     if distance < 0:
         distance = house_x - tree_x
-    if distance >= 0 and distance <= 50:
+    if distance >= 0 and distance <= 100:
         return True
     else:
         return False
@@ -40,8 +40,8 @@ ninja = Ninja(100, 560)
 
 
 
-INITIAL_CACTUS_X = random.randint(0,600)
-INITIAL_CACTUS_PAIR_X = random.randint(0,600)
+INITIAL_CACTUS_X = random.randint(200,600)
+INITIAL_CACTUS_PAIR_X = random.randint(200,600)
 cactus_x = INITIAL_CACTUS_X
 cactus_pair_x = INITIAL_CACTUS_PAIR_X
 
@@ -58,13 +58,15 @@ while run:
     clock.tick(60)
     if frame % 30 == 0:
         ninja.switch_image()
-    if ninja_x <= 0:
+    if ninja_x <= 0 and ninja_x >= 900:
         cactus_x  = 600
     if ninja_x <= 0:
         cactus_pair_x = 600
     next_to_each_other = next(cactus_x, cactus_pair_x)
     if next_to_each_other:
-        INITIAL_CACTUS_X = random.randint(0, 600)
+        INITIAL_CACTUS_X = random.randint(0, 500)
+    cactus_pair_x = cactus_pair_x - 5
+    cactus_x = cactus_x - 5
     keys = pygame.key.get_pressed()
     if keys[pygame.K_SPACE]:
         ninja.move_ninja("up")
@@ -87,4 +89,3 @@ while run:
 
 # Once we have exited the main program loop we can stop the game engine:
 pygame.quit()
-

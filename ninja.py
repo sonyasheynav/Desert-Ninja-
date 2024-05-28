@@ -17,7 +17,7 @@ class Ninja:
         self.image = pygame.transform.scale(self.image, scale_size)
 
     def move_ninja(self, direction):
-        if direction == "down" and self.y < 1000:
+        if direction == "down" and self.y < 850:
             self.y = self.y + self.delta + 1
         if direction == "up":
             self.y = self.y - self.delta

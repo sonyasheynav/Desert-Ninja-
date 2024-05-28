@@ -1,20 +1,14 @@
 import pygame
 import random
 from ninja import Ninja
-# set up pygame modules
+from cactus import Cactus
+from cactus_pair import Cactus_Pair
+
+
 pygame.init()
 pygame.font.init()
 my_font = pygame.font.SysFont('Arial', 20)
 pygame.display.set_caption("Desert Ninja")
-def next(house_x, tree_x):
-    distance = tree_x - house_x
-    if distance < 0:
-        distance = house_x - tree_x
-    if distance >= 0 and distance <= 100:
-        return True
-    else:
-        return False
-# set up variables for the display
 size = (1050, 1000)
 screen = pygame.display.set_mode(size)
 bg_size= (1050,1000)
@@ -22,18 +16,14 @@ bg = pygame.image.load("images/desert-background.png")
 bg= pygame.transform.scale(bg, bg_size)
 bg_position = (0,0)
 cactus_size= (100,200)
-cactus= pygame.image.load("images/cactus.png")
-cactus= pygame.transform.scale(cactus, cactus_size)
-cactus_pair = pygame.image.load("images/cactus_pair.png")
-cactus_pair_size= (200,200)
-cactus_pair = pygame.transform.scale(cactus_pair, cactus_pair_size)
 ninja_x = 100
 ninja = Ninja(100, 800)
+cactus = Cactus(800,750)
+cactus_pair = Cactus_Pair(800,750)
 
 
-
-INITIAL_CACTUS_X = 1050
-INITIAL_CACTUS_PAIR_X = 1050
+INITIAL_CACTUS_X = 900
+INITIAL_CACTUS_PAIR_X = 900
 cactus_x = INITIAL_CACTUS_X
 cactus_pair_x = INITIAL_CACTUS_PAIR_X
 
@@ -48,27 +38,20 @@ while run:
     clock.tick(60)
     if frame % 30 == 0:
         ninja.switch_image()
-    next_to_each_other = next(cactus_x, cactus_pair_x)
-    if next_to_each_other:
-        INITIAL_CACTUS_X = random.randint(500, 700)
-    cactus_pair_x = cactus_pair_x - 3
-    cactus_x = cactus_x - 3
     keys = pygame.key.get_pressed()
     if keys[pygame.K_SPACE]:
         ninja.move_ninja("up")
     else:
         ninja.move_ninja("down")
+    cactus.move_cactus()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:  # If user clicked close
             run = False
-    for event in pygame.event.get():  # User did something
-        if event.type == pygame.QUIT:  # If user clicked close
-            run = False
     screen.blit(bg, bg_position)
-    for i in range(5):
-        screen.blit(cactus, (cactus_x, 800))
-        if cactus_x < 0:
-            screen.blit(cactus_pair, (cactus_pair_x, 800))
+    screen.blit(cactus.image, cactus.rect)
+    if cactus.x < 0:
+        screen.blit(cactus_pair.image, cactus_pair.rect)
+        cactus_pair.move_cactus_pair()
     screen.blit(ninja.image, ninja.rect)
     pygame.display.update()
     frame += 1

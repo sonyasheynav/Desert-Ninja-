@@ -3,7 +3,8 @@ import random
 from ninja import Ninja
 from cactus import Cactus
 from cactus_pair import Cactus_Pair
-
+from tumbleweed import Tumbleweed
+from rock import Rock
 
 pygame.init()
 pygame.font.init()
@@ -20,6 +21,8 @@ ninja_x = 100
 ninja = Ninja(100, 800)
 cactus = Cactus(800,750)
 cactus_pair = Cactus_Pair(800,750)
+tumbleweed = Tumbleweed(800,750)
+rock = Rock(800,750)
 
 
 INITIAL_CACTUS_X = 900

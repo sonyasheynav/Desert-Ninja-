@@ -19,16 +19,13 @@ bg_position = (0,0)
 cactus_size= (100,200)
 ninja_x = 100
 ninja = Ninja(100, 800)
-cactus = Cactus(800,750)
-cactus_pair = Cactus_Pair(800,750)
-tumbleweed = Tumbleweed(800,750)
-rock = Rock(800,750)
-
-
-INITIAL_CACTUS_X = 900
-INITIAL_CACTUS_PAIR_X = 900
-cactus_x = INITIAL_CACTUS_X
-cactus_pair_x = INITIAL_CACTUS_PAIR_X
+cactus = Cactus(800,770)
+cactus_pair = Cactus_Pair(800,770)
+tumbleweed = Tumbleweed(900,920)
+rock = Rock(900,920)
+points = 5
+#put them into a list and iterate through the list and move them by selecting randomly and then once that object is off you pick the next one and this goes one while run
+obstacles = [cactus, cactus_pair, rock, tumbleweed]
 
 # render the text for later
 # The loop will carry on until the user exits the game (e.g. clicks the close button).
@@ -46,15 +43,30 @@ while run:
         ninja.move_ninja("up")
     else:
         ninja.move_ninja("down")
-    cactus.move_cactus()
+    #if ninja.rect.collidepoint(cactus) or ninja.rect.collidepoint(cactus_pair) or ninja.rect.collidepoint(rock) or ninja.rect.collidepoint(tumbleweed):
+        #points = points - 1
     for event in pygame.event.get():
         if event.type == pygame.QUIT:  # If user clicked close
             run = False
+
+
     screen.blit(bg, bg_position)
     screen.blit(cactus.image, cactus.rect)
-    if cactus.x < 0:
-        screen.blit(cactus_pair.image, cactus_pair.rect)
-        cactus_pair.move_cactus_pair()
+    for i in obstacles:
+        screen.blit(i.image, i.rect)
+        
     screen.blit(ninja.image, ninja.rect)
     pygame.display.update()
     frame += 1
+
+
+
+    #if cactus.x < 0:
+        #screen.blit(cactus_pair.image, cactus_pair.rect)
+        #cactus_pair.move_cactus_pair()
+        #if cactus_pair.x < 0:
+            #screen.blit(rock.image, rock.rect)
+            #rock.move_rock()
+            #if rock.x < 0:
+                #screen.blit(tumbleweed.image, tumbleweed.rect)
+                #tumbleweed.move_tumbleweed()

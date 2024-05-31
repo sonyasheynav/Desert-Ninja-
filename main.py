@@ -5,6 +5,7 @@ from cactus import Cactus
 from cactus_pair import Cactus_Pair
 from tumbleweed import Tumbleweed
 from rock import Rock
+from obstacle import Obstacle
 
 pygame.init()
 pygame.font.init()
@@ -19,13 +20,13 @@ bg_position = (0,0)
 cactus_size= (100,200)
 ninja_x = 100
 ninja = Ninja(100, 800)
-cactus = Cactus(800,770)
-cactus_pair = Cactus_Pair(800,770)
-tumbleweed = Tumbleweed(900,920)
-rock = Rock(900,920)
+cactus = Obstacle(800,770, "cactus")
+#tumbleweed = Obstacle(800,770, "tumbleweed")
+# tumbleweed = Tumbleweed(900,920)
+# rock = Rock(900,920)
 points = 5
 #put them into a list and iterate through the list and move them by selecting randomly and then once that object is off you pick the next one and this goes one while run
-obstacles = [cactus, cactus_pair, rock, tumbleweed]
+obstacles = [ cactus, ]
 
 # render the text for later
 # The loop will carry on until the user exits the game (e.g. clicks the close button).
@@ -51,10 +52,12 @@ while run:
 
 
     screen.blit(bg, bg_position)
-    screen.blit(cactus.image, cactus.rect)
     for i in obstacles:
-        screen.blit(i.image, i.rect)
-        
+            screen.blit(i.image, i.rect)
+            i.move_obstacle(i)
+            if i.x < 0:
+                screen.blit(i.image, (880,800))
+                i.move_obstacle(i)
     screen.blit(ninja.image, ninja.rect)
     pygame.display.update()
     frame += 1

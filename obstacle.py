@@ -23,3 +23,7 @@ class Obstacle:
     def move_obstacle(self, obstacle_name):
         self.x = self.x - self.delta
         self.rect = pygame.Rect(self.x, self.y, self.image_size[0], self.image_size[1])
+
+    def reset_obstacle(self, x):
+        self.x = x
+        self.rect = pygame.Rect(self.x, self.y, self.image_size[0], self.image_size[1])
